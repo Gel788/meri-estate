@@ -1,0 +1,156 @@
+.splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.splash::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(112, 59, 247, 0.08) 0%, transparent 70%);
+  animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.splash-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+}
+
+.splash-circle-1 {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, rgba(112, 59, 247, 0.15), rgba(166, 133, 250, 0.1));
+  top: -150px;
+  left: -150px;
+  animation-delay: 0s;
+}
+
+.splash-circle-2 {
+  width: 350px;
+  height: 350px;
+  background: linear-gradient(135deg, rgba(166, 133, 250, 0.12), rgba(112, 59, 247, 0.08));
+  bottom: -100px;
+  right: -100px;
+  animation-delay: 2s;
+}
+
+.splash-content {
+  text-align: center;
+  z-index: 1;
+  position: relative;
+}
+
+.splash-logo {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 40px;
+}
+
+.splash-logo-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-card);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-radius: 50%;
+  border: 3px solid rgba(112, 59, 247, 0.3);
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    inset 0 0 40px rgba(112, 59, 247, 0.1),
+    0 0 40px rgba(112, 59, 247, 0.2);
+}
+
+.splash-logo-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70px;
+  height: 70px;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.splash-text {
+  margin-top: 32px;
+}
+
+.splash-title {
+  font-size: clamp(40px, 8vw, 56px);
+  font-weight: 700;
+  font-family: 'Urbanist', sans-serif;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+  color: var(--text-primary);
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.splash-subtitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-size: 16px;
+  color: var(--text-secondary);
+  font-weight: 500;
+  font-family: 'Manrope', sans-serif;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 2px 8px rgba(112, 59, 247, 0.4);
+  animation: pulse 2s infinite;
+}
+
+.dot-purple {
+  background: var(--primary-light);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.2);
+  }
+}

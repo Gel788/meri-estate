@@ -1,0 +1,376 @@
+.property-card {
+  background: var(--bg-card);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  will-change: transform, box-shadow;
+}
+
+.property-card:hover {
+  background: var(--bg-card-hover);
+  box-shadow: var(--shadow-xl), var(--shadow-glow-purple);
+  transform: translateY(-8px) scale(1.02);
+  border-color: rgba(112, 59, 247, 0.3);
+}
+
+.property-card:active {
+  transform: translateY(-4px) scale(1.01);
+}
+
+.property-card.featured {
+  width: 340px;
+  height: 480px;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.property-card.featured .property-image {
+  height: 100%;
+}
+
+.property-card-image {
+  position: relative;
+  height: 240px;
+  overflow: hidden;
+}
+
+.property-image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: transform var(--transition-slow);
+}
+
+.property-card:hover .property-image {
+  transform: scale(1.1);
+}
+
+.property-image-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 30px,
+      rgba(255, 255, 255, 0.08) 30px,
+      rgba(255, 255, 255, 0.08) 31px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 30px,
+      rgba(255, 255, 255, 0.08) 30px,
+      rgba(255, 255, 255, 0.08) 31px
+    );
+  opacity: 0.5;
+}
+
+.property-image-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 80px;
+  opacity: 0.2;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  animation: float 6s ease-in-out infinite;
+}
+
+.property-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.3) 50%,
+    rgba(0, 0, 0, 0.85) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  z-index: 1;
+}
+
+.property-badges-top {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  z-index: 2;
+}
+
+.property-badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-md);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.badge-type {
+  background: var(--primary);
+}
+
+.badge-new {
+  background: var(--success);
+  animation: pulse 2s infinite;
+}
+
+.badge-featured {
+  background: var(--accent-yellow);
+  color: var(--bg-dark);
+}
+
+.favorite-btn,
+.favorite-btn-featured {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.favorite-btn-featured {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+}
+
+.favorite-btn:hover,
+.favorite-btn-featured:hover {
+  transform: scale(1.15) rotate(10deg);
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: var(--shadow-glow-purple);
+}
+
+.favorite-btn:active,
+.favorite-btn-featured:active {
+  transform: scale(0.9) rotate(-5deg);
+}
+
+.property-card-content {
+  margin-top: auto;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.property-card-body {
+  padding: 24px;
+  position: relative;
+  z-index: 1;
+  background: var(--bg-card);
+}
+
+.property-header {
+  margin-bottom: 18px;
+}
+
+.property-title {
+  font-size: 20px;
+  font-weight: 700;
+  font-family: 'Urbanist', sans-serif;
+  margin-bottom: 10px;
+  color: var(--text-primary);
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  letter-spacing: -0.5px;
+}
+
+.property-card.featured .property-title {
+  color: white;
+  font-size: 24px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.property-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.property-card.featured .property-location {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.property-stats {
+  display: flex;
+  gap: 24px;
+  margin: 20px 0;
+  font-size: 15px;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.property-card.featured .property-stats {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.property-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  margin: 16px 0;
+}
+
+.property-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.property-price-section {
+  flex: 1;
+  min-width: 0;
+}
+
+.property-price {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.5px;
+  font-family: 'Urbanist', sans-serif;
+}
+
+.property-card.featured .property-price {
+  font-size: 32px;
+  color: white;
+  -webkit-text-fill-color: white;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.property-price-per-meter {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.property-type {
+  padding: 8px 16px;
+  background: var(--primary);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'Manrope', sans-serif;
+  border-radius: 14px;
+  white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+@media (max-width: 1024px) {
+  .property-card.featured {
+    width: 320px;
+    height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .property-card.featured {
+    width: 280px;
+    height: 400px;
+  }
+  
+  .property-title {
+    font-size: 17px;
+  }
+  
+  .property-price {
+    font-size: 20px;
+  }
+
+  .property-card-image {
+    height: 200px;
+  }
+
+  .property-card-body {
+    padding: 16px;
+  }
+
+  .property-stats {
+    gap: 16px;
+    font-size: 14px;
+  }
+
+  .property-price-per-meter {
+    font-size: 12px;
+  }
+
+  .property-type {
+    font-size: 11px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .property-card.featured {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 400px;
+  }
+
+  .property-card-image {
+    height: 180px;
+  }
+
+  .property-title {
+    font-size: 16px;
+  }
+
+  .property-price {
+    font-size: 18px;
+  }
+
+  .property-stats {
+    gap: 12px;
+    font-size: 13px;
+  }
+}
