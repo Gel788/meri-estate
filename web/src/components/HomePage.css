@@ -212,7 +212,11 @@
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #703BF7 0%, #A855F7 50%, #9333EA 100%);
+  background: linear-gradient(135deg, 
+    #703BF7 0%, 
+    #A855F7 40%,
+    #FFD700 60%,
+    #9333EA 100%);
   color: white;
   padding: 16px 32px;
   border-radius: 16px;
@@ -223,16 +227,34 @@
   cursor: pointer;
   transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: 
-    0 8px 24px rgba(112, 59, 247, 0.4),
-    0 0 30px rgba(112, 59, 247, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 8px 24px rgba(112, 59, 247, 0.5),
+    0 0 30px rgba(112, 59, 247, 0.4),
+    0 0 20px rgba(255, 215, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
   position: relative;
   overflow: hidden;
   z-index: 1;
   background-size: 200% 200%;
   animation: gradient-shift 5s ease infinite;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 215, 0, 0.3);
   transform-style: preserve-3d;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.3) 0%, 
+    rgba(255, 215, 0, 0.1) 50%,
+    transparent 100%);
+  border-radius: 16px 16px 0 0;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .btn-primary::before {
@@ -250,15 +272,28 @@
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #5D2FD9 0%, #9333EA 50%, #A855F7 100%);
+  background: linear-gradient(135deg, 
+    #5D2FD9 0%, 
+    #9333EA 40%,
+    #FFD700 60%,
+    #A855F7 100%);
   transform: translateY(-6px) scale(1.08) rotateX(5deg);
   box-shadow: 
-    0 16px 40px rgba(112, 59, 247, 0.6),
-    0 0 60px rgba(112, 59, 247, 0.5),
+    0 16px 40px rgba(112, 59, 247, 0.7),
+    0 0 60px rgba(112, 59, 247, 0.6),
+    0 0 50px rgba(255, 215, 0, 0.5),
     0 0 100px rgba(166, 133, 250, 0.4),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3);
-  border-color: rgba(255, 255, 255, 0.2);
-  filter: brightness(1.1);
+    inset 0 2px 6px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 6px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 215, 0, 0.5);
+  filter: brightness(1.15);
+}
+
+.btn-primary:hover::after {
+  background: linear-gradient(180deg, 
+    rgba(255, 255, 255, 0.4) 0%, 
+    rgba(255, 215, 0, 0.2) 50%,
+    transparent 100%);
 }
 
 .btn-primary:hover::before {
