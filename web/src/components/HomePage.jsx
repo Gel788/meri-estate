@@ -22,9 +22,10 @@ export default function HomePage({ onNavigate }) {
   }
 
   const stats = [
-    { number: '500+', label: 'Довольных клиентов' },
-    { number: '15k+', label: 'Объектов недвижимости' },
-    { number: '12+', label: 'Лет на рынке' }
+    { number: '500+', label: 'Довольных клиентов', icon: '👥', color: '#703BF7' },
+    { number: '15k+', label: 'Объектов недвижимости', icon: '🏢', color: '#A855F7' },
+    { number: '12+', label: 'Лет на рынке', icon: '⭐', color: '#FFD700' },
+    { number: '98%', label: 'Успешных сделок', icon: '✅', color: '#10B981' }
   ]
 
   const features = [
@@ -106,23 +107,59 @@ export default function HomePage({ onNavigate }) {
       <section className="hero-section">
         <div className="hero-container">
           <div className="hero-content">
-            <motion.h1
+            <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
+              className="hero-badge"
+            >
+              <span className="hero-badge-icon">✨</span>
+              <span>Премиум недвижимость</span>
+            </motion.div>
+
+            <motion.h1
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
               className="hero-title"
             >
-              Найдите недвижимость мечты с Meri Movs
+              Найдите <span className="hero-title-accent">недвижимость мечты</span> с Meri Movs
             </motion.h1>
             
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
               className="hero-description"
             >
-              Ваш путь к идеальной недвижимости начинается здесь. Изучите наши предложения и найдите дом, который соответствует вашим мечтам. Квартиры, дома, виллы и пентхаусы — всё в одном месте.
+              Ваш путь к идеальной недвижимости начинается здесь. Изучите наши <strong>премиум предложения</strong> и найдите дом, который соответствует вашим мечтам. Квартиры, дома, виллы и пентхаусы — всё в одном месте.
             </motion.p>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="hero-features-list"
+            >
+              <div className="hero-feature-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 2L12.5 7.5L18.5 8.5L14 12.5L15 18.5L10 15.5L5 18.5L6 12.5L1.5 8.5L7.5 7.5L10 2Z" fill="currentColor"/>
+                </svg>
+                <span>Проверенные объекты</span>
+              </div>
+              <div className="hero-feature-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 2L12.5 7.5L18.5 8.5L14 12.5L15 18.5L10 15.5L5 18.5L6 12.5L1.5 8.5L7.5 7.5L10 2Z" fill="currentColor"/>
+                </svg>
+                <span>Лучшие цены</span>
+              </div>
+              <div className="hero-feature-item">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M10 2L12.5 7.5L18.5 8.5L14 12.5L15 18.5L10 15.5L5 18.5L6 12.5L1.5 8.5L7.5 7.5L10 2Z" fill="currentColor"/>
+                </svg>
+                <span>24/7 Поддержка</span>
+              </div>
+            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -175,15 +212,30 @@ export default function HomePage({ onNavigate }) {
 
       {/* Statistics Section */}
       <section className="stats-section">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="stats-header"
+        >
+          <h2 className="stats-title">Почему выбирают нас</h2>
+          <p className="stats-subtitle">Мы создаем лучший опыт в сфере недвижимости</p>
+        </motion.div>
         <div className="stats-container">
           {stats.map((stat, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.6 + index * 0.1 }}
+              initial={{ opacity: 0, y: 20, scale: 0.9 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="stat-card"
+              whileHover={{ scale: 1.05, y: -8 }}
             >
+              <div className="stat-icon-wrapper" style={{ '--stat-color': stat.color }}>
+                <span className="stat-icon">{stat.icon}</span>
+              </div>
               <div className="stat-number">{stat.number}</div>
               <div className="stat-label">{stat.label}</div>
             </motion.div>
@@ -193,17 +245,32 @@ export default function HomePage({ onNavigate }) {
 
       {/* Feature Cards Section */}
       <section className="features-section">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="features-header"
+        >
+          <h2 className="features-title">Наши возможности</h2>
+          <p className="features-subtitle">Всё что нужно для комфортной работы с недвижимостью</p>
+        </motion.div>
         <div className="features-container">
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               className="feature-card"
+              whileHover={{ scale: 1.03, y: -8 }}
             >
-              <div className="feature-icon" style={{ color: '#703BF7' }}>
-                {feature.icon}
+              <div className="feature-icon-wrapper">
+                <div className="feature-icon" style={{ color: '#703BF7' }}>
+                  {feature.icon}
+                </div>
+                <div className="feature-icon-glow"></div>
               </div>
               <h3 className="feature-title">{feature.title}</h3>
               <p className="feature-description">{feature.description}</p>
