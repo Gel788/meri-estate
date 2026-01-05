@@ -3,22 +3,45 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: var(--shadow-md);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.05);
   position: relative;
   will-change: transform, box-shadow;
+  isolation: isolate;
+}
+
+.property-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(112, 59, 247, 0.1) 0%, rgba(166, 133, 250, 0.05) 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .property-card:hover {
   background: var(--bg-card-hover);
-  box-shadow: var(--shadow-xl), var(--shadow-glow-purple);
-  transform: translateY(-8px) scale(1.02);
-  border-color: rgba(112, 59, 247, 0.3);
+  box-shadow: 
+    var(--shadow-xl), 
+    var(--shadow-glow-purple),
+    0 0 60px rgba(112, 59, 247, 0.2);
+  transform: translateY(-12px) scale(1.03);
+  border-color: rgba(112, 59, 247, 0.4);
+}
+
+.property-card:hover::after {
+  opacity: 1;
 }
 
 .property-card:active {
-  transform: translateY(-4px) scale(1.01);
+  transform: translateY(-6px) scale(1.015);
+  transition: all 0.15s ease;
 }
 
 .property-card.featured {
@@ -48,7 +71,8 @@
 }
 
 .property-card:hover .property-image {
-  transform: scale(1.1);
+  transform: scale(1.15) rotate(1deg);
+  filter: brightness(1.1) saturate(1.2);
 }
 
 .property-image-pattern {

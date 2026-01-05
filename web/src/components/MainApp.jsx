@@ -6,6 +6,7 @@ import PropertyList from './PropertyList'
 import Calculator from './Calculator'
 import MapView from './MapView'
 import CompareView from './CompareView'
+import { initScrollAnimations } from '../utils/scrollAnimations'
 import './MainApp.css'
 
 export default function MainApp() {
@@ -46,6 +47,11 @@ export default function MainApp() {
   useEffect(() => {
     localStorage.setItem('compareList', JSON.stringify(Array.from(compareList)))
   }, [compareList])
+
+  // Инициализация скролл-анимаций
+  useEffect(() => {
+    initScrollAnimations()
+  }, [activeTab])
 
   const addToViewHistory = (propertyId) => {
     const property = properties.find(p => p.id === propertyId)
@@ -213,10 +219,13 @@ export default function MainApp() {
           {activeTab === 'home' && (
             <motion.div
               key="home"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 30, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -30, scale: 0.98 }}
+              transition={{ 
+                duration: 0.5,
+                ease: [0.34, 1.56, 0.64, 1]
+              }}
             >
               <HomePage onNavigate={handleNavigate} />
             </motion.div>
