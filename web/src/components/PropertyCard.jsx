@@ -39,8 +39,13 @@ function PropertyImage({ imageIndex, type }) {
   )
 }
 
-export default function PropertyCard({ property, isFavorite, onToggleFavorite, featured }) {
+export default function PropertyCard({ property, isFavorite, onToggleFavorite, featured, onView, isInCompare, onToggleCompare }) {
   const [showDetail, setShowDetail] = useState(false)
+
+  const handleView = () => {
+    setShowDetail(true)
+    if (onView) onView(property.id)
+  }
 
   const formatPrice = (price) => {
     if (price >= 1000000) {
@@ -58,7 +63,7 @@ export default function PropertyCard({ property, isFavorite, onToggleFavorite, f
           className="property-card featured"
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.2 }}
-          onClick={() => setShowDetail(true)}
+          onClick={handleView}
         >
         <PropertyImage imageIndex={property.imageIndex} type={property.type} />
         
@@ -87,12 +92,22 @@ export default function PropertyCard({ property, isFavorite, onToggleFavorite, f
             <div className="property-price">{formatPrice(property.price)}</div>
           </div>
 
-          <button className="favorite-btn-featured" onClick={(e) => {
-            e.stopPropagation()
-            onToggleFavorite()
-          }}>
-            {isFavorite ? '❤️' : '🤍'}
-          </button>
+          <div className="property-actions-featured">
+            {onToggleCompare && (
+              <button className="compare-btn" onClick={(e) => {
+                e.stopPropagation()
+                onToggleCompare()
+              }} title={isInCompare ? 'Убрать из сравнения' : 'Добавить в сравнение'}>
+                {isInCompare ? '✓' : '⚖️'}
+              </button>
+            )}
+            <button className="favorite-btn-featured" onClick={(e) => {
+              e.stopPropagation()
+              onToggleFavorite()
+            }}>
+              {isFavorite ? '❤️' : '🤍'}
+            </button>
+          </div>
         </div>
         </motion.div>
 
@@ -103,6 +118,7 @@ export default function PropertyCard({ property, isFavorite, onToggleFavorite, f
               onClose={() => setShowDetail(false)}
               isFavorite={isFavorite}
               onToggleFavorite={onToggleFavorite}
+              onView={onView}
             />
           )}
         </AnimatePresence>
@@ -116,7 +132,7 @@ export default function PropertyCard({ property, isFavorite, onToggleFavorite, f
         className="property-card"
         whileHover={{ y: -4 }}
         transition={{ duration: 0.2 }}
-        onClick={() => setShowDetail(true)}
+        onClick={handleView}
       >
       <div className="property-card-image">
         <PropertyImage imageIndex={property.imageIndex} type={property.type} />
@@ -124,12 +140,22 @@ export default function PropertyCard({ property, isFavorite, onToggleFavorite, f
         <div className="property-badges-top">
           {property.isNew && <span className="badge badge-new">Новое</span>}
           {property.isFeatured && <span className="badge badge-featured">★</span>}
-          <button className="favorite-btn" onClick={(e) => {
-            e.stopPropagation()
-            onToggleFavorite()
-          }}>
-            {isFavorite ? '❤️' : '🤍'}
-          </button>
+          <div className="property-actions">
+            {onToggleCompare && (
+              <button className="compare-btn-small" onClick={(e) => {
+                e.stopPropagation()
+                onToggleCompare()
+              }} title={isInCompare ? 'Убрать из сравнения' : 'Добавить в сравнение'}>
+                {isInCompare ? '✓' : '⚖️'}
+              </button>
+            )}
+            <button className="favorite-btn" onClick={(e) => {
+              e.stopPropagation()
+              onToggleFavorite()
+            }}>
+              {isFavorite ? '❤️' : '🤍'}
+            </button>
+          </div>
         </div>
       </div>
 

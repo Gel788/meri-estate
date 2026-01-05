@@ -1,14 +1,16 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import FeaturedProperties from './FeaturedProperties'
 import Testimonials from './Testimonials'
 import FAQ from './FAQ'
 import Footer from './Footer'
+import ContactForm from './ContactForm'
 import { properties } from '../data/properties'
 import './HomePage.css'
 
 export default function HomePage({ onNavigate }) {
   const [showBanner, setShowBanner] = useState(true)
+  const [showContactForm, setShowContactForm] = useState(false)
 
   const handleViewProperty = (idOrTab) => {
     if (typeof idOrTab === 'string') {
@@ -227,8 +229,61 @@ export default function HomePage({ onNavigate }) {
       {/* FAQ Section */}
       <FAQ />
 
+      {/* Contact Section */}
+      <section className="contact-section">
+        <div className="contact-container">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="contact-content"
+          >
+            <h2 className="contact-title">Свяжитесь с нами</h2>
+            <p className="contact-description">
+              Оставьте заявку, и наш специалист свяжется с вами в ближайшее время
+            </p>
+            <button 
+              className="contact-cta-btn"
+              onClick={() => setShowContactForm(true)}
+            >
+              Оставить заявку
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M2.5 10H17.5M17.5 10L12.5 5M17.5 10L12.5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Footer */}
       <Footer onNavigate={onNavigate} />
+
+      <AnimatePresence>
+        {showContactForm && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="contact-form-modal"
+            onClick={() => setShowContactForm(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <ContactForm
+                onClose={() => setShowContactForm(false)}
+                onSubmit={(data) => {
+                  console.log('Contact form submitted:', data)
+                }}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

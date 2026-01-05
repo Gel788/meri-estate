@@ -5,7 +5,7 @@ import FilterModal from './FilterModal'
 import { propertyTypes, cities } from '../data/properties'
 import './PropertyList.css'
 
-export default function PropertyList({ properties, favorites, toggleFavorite, filters, setFilters, isFavoritesView, onNavigate }) {
+export default function PropertyList({ properties, favorites, toggleFavorite, filters, setFilters, isFavoritesView, onNavigate, onView, compareList, onToggleCompare }) {
   const [showFilters, setShowFilters] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [sortOption, setSortOption] = useState('newest')
@@ -558,6 +558,9 @@ export default function PropertyList({ properties, favorites, toggleFavorite, fi
                     isFavorite={favorites.has(property.id)}
                     onToggleFavorite={() => toggleFavorite(property.id)}
                     featured
+                    onView={onView}
+                    isInCompare={compareList?.has(property.id)}
+                    onToggleCompare={() => onToggleCompare?.(property.id)}
                   />
                 </div>
               ))}
@@ -619,6 +622,9 @@ export default function PropertyList({ properties, favorites, toggleFavorite, fi
                   property={property}
                   isFavorite={favorites.has(property.id)}
                   onToggleFavorite={() => toggleFavorite(property.id)}
+                  onView={onView}
+                  isInCompare={compareList?.has(property.id)}
+                  onToggleCompare={() => onToggleCompare?.(property.id)}
                 />
               </motion.div>
             ))}

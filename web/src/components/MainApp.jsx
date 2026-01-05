@@ -5,12 +5,22 @@ import HomePage from './HomePage'
 import PropertyList from './PropertyList'
 import Calculator from './Calculator'
 import MapView from './MapView'
+import CompareView from './CompareView'
 import './MainApp.css'
 
 export default function MainApp() {
   const [activeTab, setActiveTab] = useState('home')
+  const [showCompare, setShowCompare] = useState(false)
   const [favorites, setFavorites] = useState(() => {
     const saved = localStorage.getItem('favorites')
+    return saved ? new Set(JSON.parse(saved)) : new Set()
+  })
+  const [viewHistory, setViewHistory] = useState(() => {
+    const saved = localStorage.getItem('viewHistory')
+    return saved ? JSON.parse(saved) : []
+  })
+  const [compareList, setCompareList] = useState(() => {
+    const saved = localStorage.getItem('compareList')
     return saved ? new Set(JSON.parse(saved)) : new Set()
   })
   const [filters, setFilters] = useState({
@@ -28,6 +38,40 @@ export default function MainApp() {
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(Array.from(favorites)))
   }, [favorites])
+
+  useEffect(() => {
+    localStorage.setItem('viewHistory', JSON.stringify(viewHistory))
+  }, [viewHistory])
+
+  useEffect(() => {
+    localStorage.setItem('compareList', JSON.stringify(Array.from(compareList)))
+  }, [compareList])
+
+  const addToViewHistory = (propertyId) => {
+    const property = properties.find(p => p.id === propertyId)
+    if (!property) return
+
+    const newHistory = [
+      property,
+      ...viewHistory.filter(p => p.id !== propertyId)
+    ].slice(0, 10) // Храним только последние 10 просмотров
+
+    setViewHistory(newHistory)
+  }
+
+  const toggleCompare = (id) => {
+    const newCompare = new Set(compareList)
+    if (newCompare.has(id)) {
+      newCompare.delete(id)
+    } else {
+      if (newCompare.size >= 3) {
+        alert('Можно сравнить максимум 3 объекта')
+        return
+      }
+      newCompare.add(id)
+    }
+    setCompareList(newCompare)
+  }
 
   const toggleFavorite = (id) => {
     const newFavorites = new Set(favorites)
@@ -137,6 +181,22 @@ export default function MainApp() {
             </nav>
 
             <div className="header-actions">
+              {compareList.size > 0 && (
+                <button 
+                  className="header-btn compare-btn-header"
+                  onClick={() => setShowCompare(true)}
+                  title="Сравнить объекты"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 17L12 22L22 17" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M2 12L12 17L22 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                  {compareList.size > 0 && (
+                    <span className="header-badge">{compareList.size}</span>
+                  )}
+                </button>
+              )}
               <button className="header-btn">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <circle cx="12" cy="7" r="4" stroke="currentColor" strokeWidth="2"/>
@@ -176,6 +236,9 @@ export default function MainApp() {
                 filters={filters}
                 setFilters={setFilters}
                 onNavigate={handleNavigate}
+                onView={addToViewHistory}
+                compareList={compareList}
+                onToggleCompare={toggleCompare}
               />
             </motion.div>
           )}
@@ -193,6 +256,9 @@ export default function MainApp() {
                 toggleFavorite={toggleFavorite}
                 isFavoritesView={true}
                 onNavigate={handleNavigate}
+                onView={addToViewHistory}
+                compareList={compareList}
+                onToggleCompare={toggleCompare}
               />
             </motion.div>
           )}
@@ -280,6 +346,16 @@ export default function MainApp() {
           <span>Калькулятор</span>
         </button>
       </nav>
+
+      <AnimatePresence>
+        {showCompare && (
+          <CompareView
+            compareList={compareList}
+            onClose={() => setShowCompare(false)}
+            onRemove={toggleCompare}
+          />
+        )}
+      </AnimatePresence>
     </div>
   )
 }

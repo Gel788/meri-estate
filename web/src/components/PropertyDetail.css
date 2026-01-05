@@ -330,6 +330,12 @@
   margin-top: 8px;
 }
 
+@media (max-width: 768px) {
+  .contact-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
 .contact-btn {
   display: flex;
   align-items: center;
@@ -353,6 +359,17 @@
 
 .contact-email {
   background: var(--primary-light);
+  color: white;
+}
+
+.contact-primary {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #703BF7 0%, #A855F7 100%);
+  color: white;
+}
+
+.contact-whatsapp {
+  background: #25D366;
   color: white;
 }
 
@@ -493,4 +510,25 @@
   .agent-name {
     font-size: 18px;
   }
+}
+
+.contact-form-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+}
+
+.contact-form-modal > div {
+  width: 100%;
+  max-width: 500px;
 }
